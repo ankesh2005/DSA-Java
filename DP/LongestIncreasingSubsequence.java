@@ -19,22 +19,47 @@ public class LongestIncreasingSubsequence {
         // }
         // return helper(0,-1,arr,dp);
         
-        int dp[]=new int[n];
-        dp[0]=1;
-        for(int i=1;i<n;i++){
-            int max=0;
-            for(int j=i;j>=0;j--){
-                if(arr[i]>arr[j]){
-                    max=Math.max(max,dp[j]);
-                }
+        // int dp[]=new int[n];
+        // dp[0]=1;
+        // for(int i=1;i<n;i++){
+        //     int max=0;
+        //     for(int j=i;j>=0;j--){
+        //         if(arr[i]>arr[j]){
+        //             max=Math.max(max,dp[j]);
+        //         }
+        //     }
+        //     dp[i]=1+max;
+        // }
+        // int ans=0;
+        // for(int val:dp){
+        //     ans=Math.max(val,ans);
+        // }
+        // return ans;
+
+ ArrayList<Integer> ans=new ArrayList<>();
+        for(int e:arr){
+            if(ans.size()==0 || ans.get(ans.size()-1)<e) ans.add(e);
+            else{
+                replace(ans,e);
             }
-            dp[i]=1+max;
         }
-        int ans=0;
-        for(int val:dp){
-            ans=Math.max(val,ans);
+        return ans.size();
+    }
+    private static void replace(ArrayList<Integer> ans,int e){
+        int lb=-1;
+        int f=0;
+        int h=ans.size()-1;
+        while(f<=h){
+            int mid=(f+h)/2;
+            if(ans.get(mid)>=e){
+                lb=mid;
+                h=mid-1;
+            }else{
+                f=mid+1;
+            }
         }
-        return ans;
+        ans.set(lb,e);
+
     }
 }
 }
