@@ -18,8 +18,20 @@ public class PerfectSquares {
     }
     public int numSquares(int n) {
         int[] dp=new int[n+1];
-        Arrays.fill(dp, -1);
-        return helper(n,dp);
+        //Arrays.fill(dp, -1);
+        // return helper(n,dp);
+        for(int i=1;i<=n;i++){
+            if(isPerfect(i)) dp[i]=1;
+            else{
+                int min=i;
+                for(int j=1;j*j<i;j++){
+                    int count=dp[j*j]+dp[i-j*j];
+                    min=Math.min(min,count);
+                }
+                dp[i]=min;
+            }
+        }
+        return dp[n];
     }
 }
 }
