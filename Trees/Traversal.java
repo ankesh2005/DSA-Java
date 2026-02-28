@@ -1,9 +1,4 @@
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.Queue;
 import java.util.stream.Gatherer.Integrator;
-import java.util.Collections;
 import java.util.*;
 
 public class Traversal {
@@ -60,6 +55,54 @@ public class Traversal {
       if (temp.right != null)
         q.add(temp.right);
     }
+  }
+  public static void preOrderIterative(Node root){
+    if(root==null)return;
+    Stack<Node> stack=new Stack<>();
+    stack.push(root);
+    while(!stack.isEmpty()){
+      Node temp=stack.pop();
+      System.out.print(temp.val+" ");
+      if(temp.right!=null)stack.push(temp.right);
+      if(temp.left!=null)stack.push(temp.left);
+    }
+  }
+  public static void postOrderIterative(Node root){
+    if(root==null) return ;
+    Stack<Node>stack=new Stack<>();
+    ArrayList<Integer> ans=new ArrayList<>();
+    stack.push(root);
+    while(!stack.isEmpty()){
+      Node temp=stack.pop();
+      ans.add(temp.val);
+      if(temp.left!=null)stack.push(temp.left);
+      if(temp.right!=null)stack.push(temp.right);
+    }
+    Collections.reverse(ans);
+    System.out.println(ans);
+  }
+  public static void inorderIterative(Node root){
+    if (root==null) return;
+    ArrayList<Integer> ans=new ArrayList<>();
+    Stack<Node> stack=new Stack<>();
+    Node curr=root;
+    while (!stack.isEmpty() || curr!=null) {
+      if (curr!=null) {
+        if(curr.left!=null){
+          stack.push(curr);
+          curr=curr.left;
+        }else{
+          ans.add(curr.val);
+          curr=curr.right;
+        }
+      }
+      else{
+        Node top=stack.pop();
+        ans.add(top.val);
+        curr=top.right;
+      }
+    }
+    System.out.println(ans);
   }
 
   static class Pair {
@@ -161,6 +204,9 @@ public class Traversal {
     // System.out.println();
     // // zigzag
     // System.out.println(zigZagTraversal(a));
-    knthLevel(a, 0, 1);
+    // knthLevel(a, 0, 1);
+    // preOrderIterative(a);
+    // postOrderIterative(a);
+    inorderIterative(a);
   }
 }

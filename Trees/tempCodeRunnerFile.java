@@ -1,1 +1,1 @@
-flat
+System.out.println(ans);
