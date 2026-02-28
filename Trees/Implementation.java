@@ -41,6 +41,7 @@ public class Implementation {
       if(root==null) return 0;
       return 1+Math.max(findLevels(root.left), findLevels(root.right));
     }
+    
   public static void main(String[] args) {
       Node a = new Node(5);
       Node b = new Node(3);
@@ -59,6 +60,15 @@ public class Implementation {
       c.left = f;
       f.left=g;
       g.left=h;
+    //      5
+    //    /   \
+    //   3     7
+    //  /\    /
+    // 2  4  6 
+    //      /
+    //     9
+    //    /
+    //   10
       System.out.print("display: ");
       display(a);
       System.out.println();
