@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import javax.swing.tree.TreeNode;
+
 import org.w3c.dom.Node;
 
 public class FlattenABinaryTree {
@@ -32,7 +34,24 @@ public class FlattenABinaryTree {
     }
     return head.right;
   }
-  public static void flatten(Node root){
+  // Morris traversal used
+      public static void flatten(TreeNode root) {
+        TreeNode curr=root;
+        while(curr!=null){
+            if(curr.left!=null){
+                TreeNode pred=curr.left;
+                while(pred.right!=null){
+                    pred=pred.right;
+                }
+                pred.right=curr.right;
+                curr.right=curr.left;
+                curr.left=null;
+            }else{
+                curr=curr.right;
+            }
+        }
+    }
+  public static void flatten2(Node root){
     if(root==null)return;
     Node lft=root.left;
     Node rgt=root.right;
