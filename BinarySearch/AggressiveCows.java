@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 public class AggressiveCows {
   // Aggressive Cows
+  // lc-1552. Magnetic Force Between Two Balls
       public boolean place(int[] stalls,int k,int space){
         int pre=stalls[0];
         k--;

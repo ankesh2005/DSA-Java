@@ -64,4 +64,37 @@ public class NumberofProvinces {
             }
         }
     }
+
+    // disjoint set union
+    class Solution {
+    public int find(int u,int[] parent){
+        if(parent[u]==u)return u;
+        return find(parent[u],parent);
+    }
+    public void union(int u,int v,int[] parent){
+        int parentU=find(u,parent);
+        int parentV=find(v,parent);
+        if(parentU!=parentV){
+            parent[parentU]=parentV;
+        }
+    }
+    public int findCircleNum(int[][] isConnected) {
+        int n=isConnected.length;
+        int[] parent=new int[n+1];
+        for(int i=1;i<=n;i++)parent[i]=i;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(i!=j && isConnected[i][j]==1){
+                    union(i+1,j+1,parent);
+                }
+            }
+        }
+        int ans=0;
+        for(int i=1;i<=n;i++){
+            if(parent[i]==i)ans++;
+        }
+        return ans;
+
+    }
+}
 }
