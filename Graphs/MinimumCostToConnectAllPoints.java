@@ -43,3 +43,53 @@ class Solution {
     }
 }
 }
+//dsu se kiya
+class Solution {
+    public int find(int i,int[] parent){
+        if(parent[i]==i)return i;
+        return parent[i]=find(parent[i],parent);
+    }
+    public void union(int u,int v,int[] parent,int size[]){
+        int leaderU=find(u,parent);
+        int leaderV=find(v,parent);
+        if(leaderU!=leaderV){
+            if(size[leaderU]>size[leaderV]){
+                size[leaderU]+=1;
+                parent[leaderV]=leaderU;
+            }else{
+                size[leaderV]++;
+                parent[leaderU]=leaderV;
+            }
+        }
+    }
+    public int minCostConnectPoints(int[][] points) {
+        int n=points.length;
+        int[] parent=new int[n];
+        int[] size=new int[n];
+        for(int i=0;i<n;i++){
+            parent[i]=i;
+            size[i]=1;
+        }
+        List<int[]> edges=new ArrayList<>();
+        for(int u=0;u<n;u++){
+            for(int v=u+1;v<n;v++){
+                int x1=points[u][0];int y1=points[u][1];
+                int x2=points[v][0];int y2=points[v][1];
+                int dist=Math.abs(x1-x2)+Math.abs(y1-y2);
+                edges.add(new int[]{u,v,dist});
+            }
+        }
+        Collections.sort(edges,(a,b)->{
+            return Integer.compare(a[2],b[2]);
+        });
+        int cost=0;
+        for(int[] edge:edges){
+            int u=edge[0],v=edge[1],dist=edge[2];
+            if(find(u,parent)!=find(v,parent)){
+                cost+=dist;
+            }
+            union(u,v,parent,size);
+        }
+        return cost;
+    }
+}
