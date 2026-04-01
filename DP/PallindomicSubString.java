@@ -1,7 +1,6 @@
 public class PallindomicSubString {
   class Solution {
-    public void PS(String s) {
-        // code here
+    public String PS(String s) {
         int n=s.length();
         int[][] dp=new int[n][n];
         int maxLen=0;
