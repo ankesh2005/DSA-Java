@@ -1,4 +1,8 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class LongestIncreasingSubsequence {
+    // lc-300 Longest Increasing Subsequence
   class Solution {
     static int  helper(int i,int prev,int[] arr,int[][] dp){
         if(i==arr.length) return 0;
@@ -61,5 +65,69 @@ public class LongestIncreasingSubsequence {
         ans.set(lb,e);
 
     }
+    class Solution1 {
+    int solve(int idx,int prev,int[] nums,int[][] dp){
+        if(idx==nums.length)return 0;
+        if(dp[idx][prev+1]!=-1)return dp[idx][prev+1];
+        int skip=solve(idx+1,prev,nums,dp);
+        int take=0;
+        if(prev==-1 || nums[idx]>nums[prev]){
+            take=1+solve(idx+1,idx,nums,dp);
+        }
+        return dp[idx][prev+1]=Math.max(take,skip);
+
+    }
+    int rec(int[] nums){
+        int n=nums.length;
+        int dp[][]=new int[n][n+1];
+        for(var row:dp)Arrays.fill(row,-1);
+        return solve(0,-1,nums,dp);
+    }
+    int tabular(int[] nums){
+        int n=nums.length;
+        int dp[][]=new int[n+1][n+1];
+        for(int prev=0;prev<=n;prev++){
+            dp[n][prev]=0;
+        }
+        for(int idx=n-1;idx>=0;idx--){
+            for(int prev=idx-1;prev>=-1;prev--){
+                int skip=dp[idx+1][prev+1];
+                int take=0;
+                if(prev==-1 || nums[idx]>nums[prev]){
+                    take=1+dp[idx+1][idx+1];
+                }
+                dp[idx][prev+1]=Math.max(take,skip);
+            }
+        }
+        return dp[0][0];
+    }
+    int binarySearch(int[] nums){
+        ArrayList<Integer>temp=new ArrayList<>();
+        for(int num:nums){
+            if(temp.size()==0 || temp.get(temp.size()-1)<num){
+                temp.add(num);
+            }else{
+                int lb=-1;
+                int l=0,r=temp.size()-1;
+                while(l<=r){
+                    int mid=(l+r)/2;
+                    if(temp.get(mid)>=num){
+                        lb=mid;
+                        r=mid-1;
+                    }else{
+                        l=mid+1;
+                    }
+                }
+                temp.set(lb,num);
+            }
+        }
+        return temp.size();
+    }
+    public int lengthOfLIS(int[] nums) {
+        // return rec(nums);
+        // return tabular( nums);
+        return binarySearch(nums);
+    }
+}
 }
 }

@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 public class BestTimetoBuyandSellStockII {
-  // lc-122. est Time to Buy and Sell Stock II
+  // lc-122. Best Time to Buy and Sell Stock II
   class Solution {
     int solve(int idx,int[] prices,boolean buy,int[][] dp){
         if(idx==prices.length+1)return 0;
