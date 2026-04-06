@@ -1,4 +1,4 @@
-package Dp;
+
 import java.util.Arrays;
 
 public class MinimumSumPartition {
