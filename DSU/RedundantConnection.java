@@ -1,4 +1,4 @@
-package Graphs;
+package DSU;
 
 public class RedundantConnection {
   // lc-684. Redundant Connection 

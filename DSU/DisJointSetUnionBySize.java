@@ -1,4 +1,4 @@
-package Graphs;
+package DSU;
 
 public class DisJointSetUnionBySize {
   class Solution {
