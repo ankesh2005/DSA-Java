@@ -2,7 +2,7 @@
 var canCompleteCircuit = function(gas, cost) {
     let tank=0,total=0,start=0;
     for(let i=0;i<gas.length;i++){
-        let diff=gas[i]+cost[i];
+        let diff=gas[i]-cost[i];
         tank+=diff;
         total+=diff;
         if(tank<0){
@@ -10,5 +10,5 @@ var canCompleteCircuit = function(gas, cost) {
             tank=0;
         }
     }
-    return tank>0?start:-1;
+    return total>=0?start:-1;
 };
